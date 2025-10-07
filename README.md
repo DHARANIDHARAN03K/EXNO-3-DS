@@ -1,269 +1,216 @@
-## EXNO-3-DS
-## NAME : VIJAYASHREE B
-## REG : 212223040238
-
+## EXNO:4-DS
+## Name : DHARANI DHARAN K
+## Reg No : 2122230400036
 # AIM:
-To read the given data and perform Feature Encoding and Transformation process and save the data to a file.
+To read the given data and perform Feature Scaling and Feature Selection process and save the
+data to a file.
 
 # ALGORITHM:
 STEP 1:Read the given Data.
 STEP 2:Clean the Data Set using Data Cleaning Process.
-STEP 3:Apply Feature Encoding for the feature in the data set.
-STEP 4:Apply Feature Transformation for the feature in the data set.
+STEP 3:Apply Feature Scaling for the feature in the data set.
+STEP 4:Apply Feature Selection for the feature in the data set.
 STEP 5:Save the data to the file.
 
-# FEATURE ENCODING:
-1. Ordinal Encoding
-An ordinal encoding involves mapping each unique label to an integer value. This type of encoding is really only appropriate if there is a known relationship between the categories. This relationship does exist for some of the variables in our dataset, and ideally, this should be harnessed when preparing the data.
-2. Label Encoding
-Label encoding is a simple and straight forward approach. This converts each value in a categorical column into a numerical value. Each value in a categorical column is called Label.
-3. Binary Encoding
-Binary encoding converts a category into binary digits. Each binary digit creates one feature column. If there are n unique categories, then binary encoding results in the only log(base 2)ⁿ features.
-4. One Hot Encoding
-We use this categorical data encoding technique when the features are nominal(do not have any order). In one hot encoding, for each level of a categorical feature, we create a new variable. Each category is mapped with a binary variable containing either 0 or 1. Here, 0 represents the absence, and 1 represents the presence of that category.
+# FEATURE SCALING:
+1. Standard Scaler: It is also called Z-score normalization. It calculates the z-score of each value and replaces the value with the calculated Z-score. The features are then rescaled with x̄ =0 and σ=1
+2. MinMaxScaler: It is also referred to as Normalization. The features are scaled between 0 and 1. Here, the mean value remains same as in Standardization, that is,0.
+3. Maximum absolute scaling: Maximum absolute scaling scales the data to its maximum value; that is,it divides every observation by the maximum value of the variable.The result of the preceding transformation is a distribution in which the values vary approximately within the range of -1 to 1.
+4. RobustScaler: RobustScaler transforms the feature vector by subtracting the median and then dividing by the interquartile range (75% value — 25% value).
 
-# Methods Used for Data Transformation:
-  # 1. FUNCTION TRANSFORMATION
-• Log Transformation
-• Reciprocal Transformation
-• Square Root Transformation
-• Square Transformation
-  # 2. POWER TRANSFORMATION
-• Boxcox method
-• Yeojohnson method
+# FEATURE SELECTION:
+Feature selection is to find the best set of features that allows one to build useful models. Selecting the best features helps the model to perform well.
+The feature selection techniques used are:
+1.Filter Method
+2.Wrapper Method
+3.Embedded Method
 
 # CODING AND OUTPUT:
-~~~
+
+```
 import pandas as pd
-df=pd.read_csv("Encoding Data.csv")
-df
-~~~
-
-
-<img width="352" height="434" alt="image" src="https://github.com/user-attachments/assets/ba99f1ad-6ca1-4b48-8f20-d5d9e03e21e4" />
-
-
-~~~
-from sklearn.preprocessing import LabelEncoder,OrdinalEncoder
-pm=['Hot','Warm','Cold']
-e1=OrdinalEncoder(categories=[pm])
-e1.fit_transform(df[["ord_2"]])
-~~~
-
-<img width="146" height="221" alt="image" src="https://github.com/user-attachments/assets/6d8d045a-bab9-42fb-9fb9-088b1552d459" />
-
-
-~~~
-df['bo2']=e1.fit_transform(df[["ord_2"]])
-df
-~~~
-
-<img width="386" height="434" alt="image" src="https://github.com/user-attachments/assets/28aefd65-22b3-4dae-b3ad-724291562f65" />
-
-~~~
-
-le=LabelEncoder()
-dfc=df.copy()
-dfc['ord_2']=le.fit_transform(dfc['ord_2'])
-dfc
-
-~~~
-
-
-<img width="392" height="430" alt="image" src="https://github.com/user-attachments/assets/adaed87d-63a5-408e-9cae-70db16037d49" />
-
-~~~
-
-from sklearn.preprocessing import OneHotEncoder
-import pandas as pd
-
-one = OneHotEncoder(sparse_output=False)   
-df2 = df.copy()
-enc = pd.DataFrame(one.fit_transform(df2[["nom_0"]]))
-df2 = pd.concat([df2, enc], axis=1)
-df2
-~~~
-
-<img width="502" height="432" alt="image" src="https://github.com/user-attachments/assets/8463c76e-20c0-4b2f-b7e6-1f3346f96494" />
-
-~~~
-
-pd.get_dummies(df2,columns=["nom_0"])
-
-~~~
-
-<img width="776" height="430" alt="image" src="https://github.com/user-attachments/assets/231f0a88-89ed-4dfd-95bc-b2a173f180f9" />
-
-~~~
-pip install --upgrade category_encoders
-~~~
-
-<img width="1557" height="425" alt="image" src="https://github.com/user-attachments/assets/931ee541-8343-4c6c-9240-3d32d1b4d8cc" />
-
-~~~
-from category_encoders import BinaryEncoder
-df=pd.read_csv("data.csv")
-df
-be=BinaryEncoder()
-nd=be.fit_transform(df['Ord_2'])
-df
-dfb=pd.concat([df,nd],axis=1)
-dfb
-~~~
-
-<img width="825" height="446" alt="image" src="https://github.com/user-attachments/assets/8dc1e098-7eda-487b-8ff8-7f74f6bcc747" />
-
-~~~
-
-from category_encoders import TargetEncoder
-te=TargetEncoder()
-CC=df.copy()
-new=te.fit_transform(X=CC["City"],y=CC["Target"])
-CC=pd.concat([CC,new],axis=1)
-CC
-~~~
-
-<img width="667" height="423" alt="image" src="https://github.com/user-attachments/assets/03b78b88-b5f6-4608-8d67-c8708fd9fb35" />
-
-~~~
-
-import pandas as pd
-from scipy import stats
 import numpy as np
-df=pd.read_csv("Data_to_Transform.csv")
-df
-
-~~~
-
-<img width="939" height="504" alt="image" src="https://github.com/user-attachments/assets/41b96318-9a3f-4a83-a6bc-50791d711002" />
-
-~~~
-df.skew()
-~~~
-
-<img width="372" height="245" alt="image" src="https://github.com/user-attachments/assets/2bcec77d-cc4a-48c1-9c50-63507d63df5f" />
-
-~~~
-np.log(df["Highly Positive Skew"])
-~~~
-
-
-<img width="273" height="499" alt="image" src="https://github.com/user-attachments/assets/d8b24289-e0fc-4e5e-98bf-bda6003a26b9" />
-
-
-~~~
-np.reciprocal(df["Moderate Positive Skew"])
-~~~
-
-<img width="306" height="550" alt="image" src="https://github.com/user-attachments/assets/1727fdc1-b80b-42da-a1af-ed30c0f4ebbe" />
-
-
-~~~
-np.sqrt(df["Highly Positive Skew"])
-~~~
-
-<img width="352" height="597" alt="image" src="https://github.com/user-attachments/assets/2220e765-a091-4cc4-8285-91515c18d149" />
-
-~~~
-np.square(df["Highly Positive Skew"])
-~~~
-
-<img width="332" height="553" alt="image" src="https://github.com/user-attachments/assets/ef83d4b8-afa1-4ce2-9288-cf47786d2606" />
-
-~~~
-df["Highly Positive Skew_boxcox"], parameters=stats.boxcox(df["Highly Positive Skew"])
-df
-~~~
-
-<img width="1241" height="517" alt="image" src="https://github.com/user-attachments/assets/1ae07df9-a56a-4eba-b419-508d8b92b27c" />
-
-~~~
-df.skew()
-~~~
-
-<img width="461" height="325" alt="image" src="https://github.com/user-attachments/assets/a953e19b-bba6-47ec-8d30-6b42e18b660e" />
-
-~~~
-df["Highly Negative Skew_yeojohnson"],parameters=stats.yeojohnson(df["Highly Negative Skew"])
-df.skew()
-~~~
-
-<img width="468" height="326" alt="image" src="https://github.com/user-attachments/assets/ccea007b-178a-4486-8e35-b51944bbe528" />
-
-~~~
-from sklearn.preprocessing import QuantileTransformer
-qt=QuantileTransformer(output_distribution='normal')
-df["Moderate Negative Skew_1"]=qt.fit_transform(df[["Moderate Negative Skew"]])
-df
-~~~
-
-<img width="1718" height="546" alt="image" src="https://github.com/user-attachments/assets/3ed97f7a-1092-4e36-bf10-6d9e15f28319" />
-
-~~~
 import seaborn as sns
-import statsmodels.api as sm
-import matplotlib.pyplot as plt
-sm.qqplot(df["Moderate Negative Skew"],line='45')
-plt.show()
-~~~
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix
+data=pd.read_csv("income(1) (1).csv",na_values=[ " ?"])
+data
+```
 
-<img width="732" height="536" alt="image" src="https://github.com/user-attachments/assets/71e3348a-fe48-4779-b739-e08a9612b68f" />
+<img width="1350" height="867" alt="image" src="https://github.com/user-attachments/assets/f9a8fcdf-30d4-4528-a1d9-f25783986ad0" />
 
-~~~
-sm.qqplot(np.reciprocal(df["Moderate Negative Skew"]),line='45')
-plt.show()
-~~~
+```
+data.isnull().sum()
+```
 
-<img width="716" height="529" alt="image" src="https://github.com/user-attachments/assets/e55ae036-8094-42a3-a7d0-498ead58e533" />
+<img width="472" height="647" alt="image" src="https://github.com/user-attachments/assets/f65992d2-6bef-4841-ae4d-8842b331774f" />
 
-~~~
-from sklearn.preprocessing import QuantileTransformer
-qt=QuantileTransformer(output_distribution='normal',n_quantiles=891)
-df["Moderate Negative Skew"]=qt.fit_transform(df[["Moderate Negative Skew"]])
-sm.qqplot(df["Moderate Negative Skew"],line='45')
-plt.show()
-~~~
+```
+missing=data[data.isnull().any(axis=1)]
+missing
+```
 
-<img width="704" height="541" alt="image" src="https://github.com/user-attachments/assets/d91ccf8d-0108-48c9-94fa-fe25ad406d0e" />
+<img width="1335" height="823" alt="image" src="https://github.com/user-attachments/assets/300875e6-ba1c-4aae-b540-f0a36de84610" />
 
-~~~
-df["Highly Negative Skew_1"]=qt.fit_transform(df[["Highly Negative Skew"]])
-sm.qqplot(df["Highly Negative Skew"],line='45')
-plt.show()
-~~~
+```
+data2=data.dropna(axis=0)
+data2
+```
 
-<img width="709" height="536" alt="image" src="https://github.com/user-attachments/assets/e767300e-8057-4a85-9d54-b453ec214cb3" />
+<img width="1357" height="838" alt="image" src="https://github.com/user-attachments/assets/d0e7f79f-4a1c-4ca8-a281-474a1c8681a1" />
 
-~~~
-dt=pd.read_csv("data.csv")
-dt
-~~~
+```
+sal=data["SalStat"]
+data2["SalStat"]=data["SalStat"].map({' less than or equal to 50,000':0,' greater than 50,000':1})
+print(data2['SalStat'])
+```
 
-<img width="579" height="441" alt="image" src="https://github.com/user-attachments/assets/7ede8bb6-16b4-4109-888e-9e4b5c1f4bdd" />
+<img width="1350" height="496" alt="image" src="https://github.com/user-attachments/assets/fd888f92-9551-4b09-8060-fc82af40c799" />
 
-~~~
-from sklearn.preprocessing import QuantileTransformer
-qt=QuantileTransformer(output_distribution='normal',n_quantiles=891)
-dt["Ord_1"]=qt.fit_transform(dt[["Target"]])
-sm.qqplot(dt['Target'],line='45') 
-plt.show()
-~~~
+```
+sal2=data2['SalStat']
+dfs=pd.concat([sal,sal2],axis=1)
+dfs
+```
 
+<img width="601" height="608" alt="image" src="https://github.com/user-attachments/assets/ebb431f6-aec6-4d8b-bc4c-f73217e025a8" />
 
-<img width="1306" height="577" alt="image" src="https://github.com/user-attachments/assets/a6f5e6f4-ff3d-4e59-9247-4808dcba310c" />
+```
+data2
+```
 
-
-~~~
-sm.qqplot(df["Highly Negative Skew_1"],line='45')
-plt.show()
-~~~
+<img width="1360" height="772" alt="image" src="https://github.com/user-attachments/assets/9ca9d101-85de-4bca-b7a6-e5f537524913" />
 
 
+```
+new_data=pd.get_dummies(data2, drop_first=True)
+new_data
+```
 
-<img width="787" height="564" alt="image" src="https://github.com/user-attachments/assets/dd2fae8b-1945-480a-856b-28c7d686d12d" />
+<img width="1358" height="661" alt="image" src="https://github.com/user-attachments/assets/d862c898-dfac-47be-978a-875c4b0a5945" />
 
-# RESULT:
+```
+columns_list=list(new_data.columns)
+print(columns_list)
+```
 
-    Thus the given data, Feature Encoding, Transformation process and save the data to a file was performed successfully
+<img width="1357" height="110" alt="image" src="https://github.com/user-attachments/assets/2d87876b-8f54-4be7-b315-c3a6b2e4c081" />
 
-       
+```
+features=list(set(columns_list)-set(['SalStat']))
+print(features)
+```
+
+<img width="1355" height="115" alt="image" src="https://github.com/user-attachments/assets/d424a0d6-7ab5-4124-bcfd-6901390ffdc0" />
+
+```
+y=new_data['SalStat'].values
+print(y)
+```
+
+<img width="336" height="113" alt="image" src="https://github.com/user-attachments/assets/12b7a9c9-ffd5-4aa8-a1f8-c2b1904949f1" />
+
+```
+x=new_data[features].values
+print(x)
+```
+
+<img width="616" height="241" alt="image" src="https://github.com/user-attachments/assets/8c4f2a8c-9bd5-46e8-bac5-118a38d8254f" />
+
+```
+train_x,test_x,train_y,test_y=train_test_split(x,y,test_size=0.3,random_state=0)
+KNN_classifier=KNeighborsClassifier(n_neighbors = 5)
+KNN_classifier.fit(train_x,train_y)
+```
+
+<img width="1037" height="187" alt="image" src="https://github.com/user-attachments/assets/ca929089-56f9-4e46-9e19-2aacc18d4bbc" />
+
+```
+prediction=KNN_classifier.predict(test_x)
+confusionMatrix=confusion_matrix(test_y, prediction)
+print(confusionMatrix)
+```
+
+<img width="567" height="147" alt="image" src="https://github.com/user-attachments/assets/332c25c2-881c-4a49-9b3b-8b2129132b39" />
+
+
+```
+accuracy_score=accuracy_score(test_y,prediction)
+print(accuracy_score)
+```
+
+<img width="613" height="105" alt="image" src="https://github.com/user-attachments/assets/40e5f84e-9b1a-4bf5-aad4-12cd88a7b9ce" />
+
+
+```
+print("Misclassified Samples : %d" % (test_y !=prediction).sum())
+```
+
+<img width="811" height="83" alt="image" src="https://github.com/user-attachments/assets/170a09b3-8d0b-4128-8505-27aa9cf385d5" />
+
+```
+data.shape
+```
+
+<img width="232" height="90" alt="image" src="https://github.com/user-attachments/assets/4bbabe07-8951-4e05-aa12-81f1eaf3c93f" />
+
+```
+import pandas as pd
+from sklearn.feature_selection import SelectKBest, mutual_info_classif, f_classif
+data={
+'Feature1': [1,2,3,4,5],
+'Feature2': ['A','B','C','A','B'],
+'Feature3': [0,1,1,0,1],
+'Target' : [0,1,1,0,1]
+}
+df=pd.DataFrame(data)
+x=df[['Feature1','Feature3']]
+y=df[['Target']]
+selector=SelectKBest(score_func=mutual_info_classif,k=1)
+x_new=selector.fit_transform(x,y)
+selected_feature_indices=selector.get_support(indices=True)
+selected_features=x.columns[selected_feature_indices]
+print("Selected Features:")
+print(selected_features)
+```
+
+<img width="1332" height="525" alt="image" src="https://github.com/user-attachments/assets/8133e47b-4fce-4e57-8d40-8cd8ca6db12b" />
+
+```
+import pandas as pd
+import numpy as np
+from scipy.stats import chi2_contingency
+import seaborn as sns
+tips=sns.load_dataset('tips')
+tips.head()
+```
+
+<img width="952" height="417" alt="image" src="https://github.com/user-attachments/assets/847836fe-c2ea-432b-ba0f-92f576a9ecb8" />
+
+```
+tips.time.unique()
+```
+
+<img width="593" height="112" alt="image" src="https://github.com/user-attachments/assets/3b9e1dae-25bc-4058-aa7c-58fdbb009ea3" />
+
+```
+contingency_table=pd.crosstab(tips['sex'],tips['time'])
+print(contingency_table)
+```
+
+<img width="751" height="165" alt="image" src="https://github.com/user-attachments/assets/5013b4ae-ec35-4676-9a4a-3c3a8504bdcf" />
+
+```
+chi2,p,_,_=chi2_contingency(contingency_table)
+print(f"Chi-Square Statistics: {chi2}")
+print(f"P-Value: {p}")
+```
+
+<img width="632" height="157" alt="image" src="https://github.com/user-attachments/assets/cd9ae63c-445e-4be8-a374-4d5f0b3f07d3" />
+
+
+
+
+# RESULT
+   Thus, Feature selection and Feature scaling has been used on thegiven dataset.
